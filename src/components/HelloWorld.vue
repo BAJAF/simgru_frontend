@@ -6,12 +6,16 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-          <img src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" id="icon" alt="User Icon"/>
+          <img :src=img_user id="icon" alt="User Icon"/>
         </div>
 
         <!-- Login Form -->
         <form>
-          <input type="submit" class="fadeIn fourth" value="Iniciar Sesión con Google">
+          <GoogleLogin :callback="callback">
+          <button type="button" class="fadeIn fourth">Iniciar Sesión con Google</button>
+          </GoogleLogin>
+
+          <GoogleLogin :callback="callback"/>
         </form>
 
         <!-- Remind Passowrd -->
@@ -25,7 +29,19 @@
 </template>
 
 <script setup>
-  //
+import { ref } from 'vue';
+import { decodeCredential } from 'vue3-google-login'
+const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png")
+const callback = (response) => {
+  if(response.credential) {
+    const userData = decodeCredential(response.credential)
+    // decodeCredential will retrive the JWT payload from the credential
+    img_user.value = userData.picture
+  }
+  // This callback will be triggered when the user selects or login to
+  // his Google account from the popup
+  console.log("Handle the response", response)
+}
 </script>
 
 <style scoped>
@@ -109,9 +125,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button],
-input[type=submit],
-input[type=reset] {
+button[type=button] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -133,15 +147,11 @@ input[type=reset] {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover,
-input[type=submit]:hover,
-input[type=reset]:hover {
+button[type=button]:hover {
   background-color: #39ace7;
 }
 
-input[type=button]:active,
-input[type=submit]:active,
-input[type=reset]:active {
+button[type=button]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -149,7 +159,7 @@ input[type=reset]:active {
   transform: scale(0.95);
 }
 
-input[type=text] {
+button[type=text] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -170,12 +180,12 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+button[type=text]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+button[type=text]:placeholder {
   color: #cccccc;
 }
 
@@ -403,9 +413,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button],
-input[type=submit],
-input[type=reset] {
+button[type=button]{
   background-color: #56baed;
   border: none;
   color: white;
@@ -427,15 +435,11 @@ input[type=reset] {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover,
-input[type=submit]:hover,
-input[type=reset]:hover {
+button[type=button]:hover {
   background-color: #39ace7;
 }
 
-input[type=button]:active,
-input[type=submit]:active,
-input[type=reset]:active {
+button[type=button]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -443,7 +447,7 @@ input[type=reset]:active {
   transform: scale(0.95);
 }
 
-input[type=text] {
+button[type=text] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -464,12 +468,12 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+button[type=text]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+button[type=text]:placeholder {
   color: #cccccc;
 }
 
