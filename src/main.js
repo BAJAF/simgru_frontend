@@ -5,6 +5,7 @@
  */
 
 //axios plugin
+import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 // Components
@@ -20,15 +21,6 @@ import { registerPlugins } from '@/plugins'
 
 import { initializeApp } from "firebase/app";
 import router from './router';
-
-// TODO: Add SDKs for Firebase products that you want to use
-
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-
-// Your web app's Firebase configuration
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
 

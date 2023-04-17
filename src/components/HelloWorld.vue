@@ -24,21 +24,25 @@
 </template>
 
 <script setup>
-
 import axios from 'axios';
 import { reactive } from 'vue';
 import { ref } from 'vue';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { useAppStore } from '@/store/app';
 
 const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
 
-const signInWithGoogle = () => {
-  console.log("buenas")
+const jwtStore = useAppStore()
 
+const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
+  provider.addScope("https://www.googleapis.com/auth/classroom.courses")
+
+  console.log(provider.getScopes())
   signInWithPopup(getAuth(), provider)
     .then((res) => {
-      console.log(res);
+      console.log(res._tokenResponse.oauthAccessToken);
+      sendTokenToServer(res._tokenResponse.oauthAccessToken);
     })
     .catch((error) => {
       //Manejar el error
@@ -46,16 +50,19 @@ const signInWithGoogle = () => {
     })
 }
 
-
 const state = reactive({
   googleToken: null,
   jwtToken: null,
 });
 
-function sendTokenToServer() {
-  axios.post('jwt/eltoken', { token: state.googleToken })
+function sendTokenToServer(token) {
+  axios.get('http://localhost:8000/jwt/'+token+'/')
     .then(res => {
       state.jwtToken = res.data.token;
+      console.log(res);
+      jwtStore.set(res.data.jwt);
+
+      getUserCourses(res.data.jwt);
     })
     .catch(error => {
       console.error(error);
@@ -65,6 +72,16 @@ function sendTokenToServer() {
     state,
     sendTokenToServer,
   };
+}
+
+function getUserCourses(jwt) {
+  axios.get('http://localhost:8000/courses/'+jwt+'/')
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
 </script>
