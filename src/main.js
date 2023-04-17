@@ -48,7 +48,7 @@ const firebaseConfig = {
 
 };
 
-axios.default.baseURL = "http://localhost:8080/"; //ruta del servidor
+axios.default.baseURL = "http://localhost:8000/"; //ruta del servidor
 
 //createApp.use(router).use(VueAxios,axios).mount('#app');
 

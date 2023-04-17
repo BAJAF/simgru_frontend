@@ -53,7 +53,7 @@ const state = reactive({
 });
 
 function sendTokenToServer() {
-  axios.post('/auth/login', { token: state.googleToken })
+  axios.post('jwt/eltoken', { token: state.googleToken })
     .then(res => {
       state.jwtToken = res.data.token;
     })
