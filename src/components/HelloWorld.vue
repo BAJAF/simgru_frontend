@@ -61,8 +61,8 @@ function sendTokenToServer(token) {
       state.jwtToken = res.data.token;
       console.log(res);
       jwtStore.set(res.data.jwt);
-
       getUserCourses(res.data.jwt);
+      
     })
     .catch(error => {
       console.error(error);
@@ -74,15 +74,7 @@ function sendTokenToServer(token) {
   };
 }
 
-function getUserCourses(jwt) {
-  axios.get('http://localhost:8000/courses/'+jwt+'/')
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => {
-      console.error(error);
-    });
-}
+
 
 </script>
 
