@@ -5,7 +5,7 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-          <img :src=img_user id="icon" alt="User Icon"/>
+          <img :src=img_user id="icon" alt="User Icon" />
         </div>
 
         <!-- Sign in with Google button -->
@@ -24,24 +24,48 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
 
-  const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
+import axios from 'axios';
+import { reactive } from 'vue';
+import { ref } from 'vue';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 
-  const signInWithGoogle = () => {
-    console.log("buenas")
+const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
 
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(), provider)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        //Manejar el error
-        console.log(error);
-      })
-  }
+const signInWithGoogle = () => {
+  console.log("buenas")
+
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(), provider)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      //Manejar el error
+      console.log(error);
+    })
+}
+
+
+const state = reactive({
+  googleToken: null,
+  jwtToken: null,
+});
+
+function sendTokenToServer() {
+  axios.post('/auth/login', { token: state.googleToken })
+    .then(res => {
+      state.jwtToken = res.data.token;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+  return {
+    state,
+    sendTokenToServer,
+  };
+}
 
 </script>
 
@@ -414,7 +438,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-button[type=button]{
+button[type=button] {
   background-color: #56baed;
   border: none;
   color: white;

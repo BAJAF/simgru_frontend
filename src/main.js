@@ -4,6 +4,9 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
+//axios plugin
+import VueAxios from 'vue-axios';
+
 // Components
 import App from './App.vue'
 
@@ -16,6 +19,7 @@ import { registerPlugins } from '@/plugins'
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
+import router from './router';
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -43,6 +47,10 @@ const firebaseConfig = {
   measurementId: "G-PDX2WBZCT6"
 
 };
+
+axios.default.baseURL = "http://localhost:8080/"; //ruta del servidor
+
+//createApp.use(router).use(VueAxios,axios).mount('#app');
 
 initializeApp(firebaseConfig);
 
