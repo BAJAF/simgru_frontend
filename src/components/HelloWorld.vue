@@ -2,25 +2,20 @@
   <div class="home">
     <div class="wrapper fadeInDown">
       <div id="formContent">
-        <!-- Tabs Titles -->
 
         <!-- Icon -->
         <div class="fadeIn first">
           <img :src=img_user id="icon" alt="User Icon"/>
         </div>
 
-        <!-- Login Form -->
-        <form>
-          <GoogleLogin :callback="callback">
-          <button type="button" class="fadeIn fourth">Iniciar Sesión con Google</button>
-          </GoogleLogin>
+        <!-- Sign in with Google button -->
+        <div>
+          <button @click="signInWithGoogle">Ingresar al Sistema</button>
+        </div>
 
-          <GoogleLogin :callback="callback"/>
-        </form>
-
-        <!-- Remind Passowrd -->
+        <!-- Bottom name -->
         <div id="formFooter">
-          <a class="underlineHover" href="#">SIMGRU</a>
+          <a class="underlineHover" href="#">Sistema Mexicano Generador de Reportes Universitarios</a>
         </div>
 
       </div>
@@ -29,19 +24,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { decodeCredential } from 'vue3-google-login'
-const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png")
-const callback = (response) => {
-  if(response.credential) {
-    const userData = decodeCredential(response.credential)
-    // decodeCredential will retrive the JWT payload from the credential
-    img_user.value = userData.picture
+  import { ref } from 'vue';
+  import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
+
+  const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
+
+  const signInWithGoogle = () => {
+    console.log("buenas")
+
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(getAuth(), provider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        //Manejar el error
+        console.log(error);
+      })
   }
-  // This callback will be triggered when the user selects or login to
-  // his Google account from the popup
-  console.log("Handle the response", response)
-}
+
 </script>
 
 <style scoped>
