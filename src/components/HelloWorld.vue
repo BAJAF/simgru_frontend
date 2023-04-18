@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" >
     <div class="wrapper fadeInDown">
       <div id="formContent">
 
@@ -10,7 +10,7 @@
 
         <!-- Sign in with Google button -->
         <div>
-          <button @click="signInWithGoogle">Ingresar al Sistema</button>
+          <v-btn size="large" @click="signInWithGoogle">Ingresar al Sistema</v-btn>
         </div>
 
         <!-- Bottom name -->
@@ -29,9 +29,10 @@ import { reactive } from 'vue';
 import { ref } from 'vue';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { useAppStore } from '@/store/app';
+import { useRouter } from 'vue-router';
 
 const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
-
+const router = useRouter()
 const jwtStore = useAppStore()
 
 const signInWithGoogle = () => {
@@ -41,7 +42,6 @@ const signInWithGoogle = () => {
   console.log(provider.getScopes())
   signInWithPopup(getAuth(), provider)
     .then((res) => {
-      console.log(res._tokenResponse.oauthAccessToken);
       sendTokenToServer(res._tokenResponse.oauthAccessToken);
     })
     .catch((error) => {
@@ -50,32 +50,20 @@ const signInWithGoogle = () => {
     })
 }
 
-const state = reactive({
-  googleToken: null,
-  jwtToken: null,
-});
 
-function sendTokenToServer(token) {
+const sendTokenToServer = (token)  => {
   axios.get('http://localhost:8000/jwt/'+token+'/')
     .then(res => {
-      state.jwtToken = res.data.token;
-      console.log(res);
       jwtStore.set(res.data.jwt);
-      getUserCourses(res.data.jwt);
-      
+      console.log(res.data.jwt);
+      router.push({
+        name: 'Cursos'
+      });
     })
     .catch(error => {
       console.error(error);
     });
-
-  return {
-    state,
-    sendTokenToServer,
-  };
 }
-
-
-
 </script>
 
 <style scoped>
@@ -117,6 +105,11 @@ h2 {
   width: 100%;
   min-height: 100%;
   padding: 20px;
+  margin: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  top: 0%;
 }
 
 #formContent {

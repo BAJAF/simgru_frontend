@@ -21,6 +21,7 @@
 <script setup>
   import { onMounted, ref } from "vue"
   import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+import router from "@/router";
 
   const isAuth = ref(false);
   const userName = ref("");
@@ -41,6 +42,7 @@
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
+      router.push("/");
       console.log("User signed out.");
     })
   }
