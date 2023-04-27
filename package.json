@@ -10,13 +10,22 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "axios": "^1.3.5",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
+<<<<<<< HEAD
     "nodejs": "^0.0.0",
+=======
+    "firebase": "^9.19.1",
+>>>>>>> 3f397afc5d47b1f5486b1ef7c11cb1fe235602a9
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
-    "vue": "^3.2.13",
+    "vue": "^3.2.47",
+    "vue-axios": "^3.5.2",
     "vue-router": "^4.0.0",
-    "vuetify": "^3.0.0",
+    "vue3-google-login": "^2.0.15",
+    "vuetify": "^3.1.14",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
