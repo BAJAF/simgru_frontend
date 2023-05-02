@@ -1,70 +1,58 @@
 <template>
-<<<<<<< HEAD
-  <div>
-    <button @click="onClickLogin">Login with Google</button>
-  </div>
-</template>
-
-<script>
-import { gapi } from "https://apis.google.com/js/api.js";
-
-export default {
-  name: "LoginButton",
-  methods: {
-    onClickLogin() {
-      gapi.auth2
-        .getAuthInstance()
-        .signIn()
-        .then((response) => {
-          const { tokenObj } = response;
-          // you can use the tokenObj here to call Google API
-          console.log(tokenObj);
-        });
-    },
-  },
-};
-=======
-  <div class="home" >
+  <div class="home">
+    <div class="box"></div>
+    <div class="cimarron"></div>
     <div class="wrapper fadeInDown">
       <div id="formContent">
+        <div id="formContentSecundario">
+          <!-- Icon -->
+          <div class="fadeIn first" id="logoUABC">
+            <img :src="img_user" id="icon" alt="User Icon" />
+          </div>
 
-        <!-- Icon -->
-        <div class="fadeIn first">
-          <img :src=img_user id="icon" alt="User Icon" />
+          <div class="content">
+            <div id="textoSimgru">
+              <span>Sistema Mexicano Generador de Reportes Universitarios</span>
+            </div>
+            <!-- Sign in with Google button -->
+            <div>
+              <v-btn
+                color="#FFFFFF"
+                class="text-black"
+                id="botonGoogle"
+                size="large"
+                @click="signInWithGoogle"
+              >
+                <img :src="google_icon" id="icon_google" alt="User Icon" />
+
+                Iniciar Sesion
+              </v-btn>
+            </div>
+          </div>
         </div>
-
-        <!-- Sign in with Google button -->
-        <div>
-          <v-btn size="large" @click="signInWithGoogle">Ingresar al Sistema</v-btn>
-        </div>
-
-        <!-- Bottom name -->
-        <div id="formFooter">
-          <a class="underlineHover" href="#">Sistema Mexicano Generador de Reportes Universitarios</a>
-        </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import axios from 'axios';
-import { reactive } from 'vue';
-import { ref } from 'vue';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { useAppStore } from '@/store/app';
-import { useRouter } from 'vue-router';
+import axios from "axios";
+import { reactive } from "vue";
+import { ref } from "vue";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useAppStore } from "@/store/app";
+import { useRouter } from "vue-router";
 
-const img_user = ref("https://cdn-icons-png.flaticon.com/512/6681/6681204.png");
-const router = useRouter()
-const jwtStore = useAppStore()
+const img_user = ref("/src/assets/Isotipo1FondoBlanco1.png");
+const google_icon = ref("/src/assets/vectorGoogle.svg");
+const router = useRouter();
+const jwtStore = useAppStore();
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/classroom.courses")
+  provider.addScope("https://www.googleapis.com/auth/classroom.courses");
 
-  console.log(provider.getScopes())
+  console.log(provider.getScopes());
   signInWithPopup(getAuth(), provider)
     .then((res) => {
       sendTokenToServer(res._tokenResponse.oauthAccessToken);
@@ -72,27 +60,76 @@ const signInWithGoogle = () => {
     .catch((error) => {
       //Manejar el error
       console.log(error);
-    })
-}
+    });
+};
 
-
-const sendTokenToServer = (token)  => {
-  axios.get('http://localhost:8000/jwt/'+token+'/')
-    .then(res => {
+const sendTokenToServer = (token) => {
+  axios
+    .get("http://localhost:8000/jwt/" + token + "/")
+    .then((res) => {
       jwtStore.set(res.data.jwt);
       console.log(res.data.jwt);
       router.push({
-        name: 'Cursos'
+        name: "Cursos",
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
     });
-}
->>>>>>> 3f397afc5d47b1f5486b1ef7c11cb1fe235602a9
+};
 </script>
 
 <style scoped>
+#icon_google {
+  margin-right: 25%;
+  margin-top: 4%;
+}
+#botonGoogle {
+  padding-top: 0px;
+  padding-bottom: 50px;
+  align-items: center;
+}
+.home {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  background: #00723f;
+  mix-blend-mode: normal;
+}
+#textoSimgru {
+  font-family: "Alata";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.box {
+  position: absolute;
+  content: "";
+  border-bottom: 100vh solid #fbfbfb;
+  border-right: 50vw solid transparent;
+}
+.cimarron {
+  position: absolute;
+  width: 372px;
+  height: 318px;
+  left: 31px;
+  bottom: 26px;
+
+  background: url(../assets/Cimarron1.png);
+}
+
 html {
   background-color: #56baed;
 }
@@ -118,8 +155,6 @@ h2 {
   margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
@@ -141,7 +176,7 @@ h2 {
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #fff;
+  background: #febe10;
   padding: 30px;
   width: 90%;
   max-width: 450px;
@@ -153,15 +188,13 @@ h2 {
 }
 
 #formFooter {
-  background-color: #f6f6f6;
+  background-color: #febe10;
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
-
-
 
 /* TABS */
 
@@ -174,11 +207,9 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
 /* FORM TYPOGRAPHY*/
 
-button[type=button] {
+button[type="button"] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -200,11 +231,11 @@ button[type=button] {
   transition: all 0.3s ease-in-out;
 }
 
-button[type=button]:hover {
+button[type="button"]:hover {
   background-color: #39ace7;
 }
 
-button[type=button]:active {
+button[type="button"]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -212,7 +243,7 @@ button[type=button]:active {
   transform: scale(0.95);
 }
 
-button[type=text] {
+button[type="text"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -233,16 +264,14 @@ button[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-button[type=text]:focus {
+button[type="text"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-button[type=text]:placeholder {
+button[type="text"]:placeholder {
   color: #cccccc;
 }
-
-
 
 /* ANIMATIONS */
 
@@ -374,8 +403,6 @@ button[type=text]:placeholder {
   width: 100%;
 }
 
-
-
 /* OTHERS */
 
 *:focus {
@@ -383,9 +410,9 @@ button[type=text]:placeholder {
 }
 
 #icon {
-  width: 60%;
+  width: 100%;
+  height: 100%;
 }
-
 html {
   background-color: #56baed;
 }
@@ -412,8 +439,6 @@ h2 {
   color: #cccccc;
 }
 
-
-
 /* STRUCTURE */
 
 .wrapper {
@@ -428,28 +453,31 @@ h2 {
 
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
+  border-radius: 60px 20px 60px 20px;
+  background: #febe10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 30px;
-  width: 90%;
-  max-width: 450px;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
 }
-
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
+#formContentSecundario {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 90%;
+  width: 95%;
+  align-items: center;
+  background: #fed158;
+  border-radius: 60px 20px 60px 20px;
 }
-
-
 
 /* TABS */
 
@@ -462,11 +490,9 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
 /* FORM TYPOGRAPHY*/
 
-button[type=button] {
+button[type="button"] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -488,11 +514,11 @@ button[type=button] {
   transition: all 0.3s ease-in-out;
 }
 
-button[type=button]:hover {
+button[type="button"]:hover {
   background-color: #39ace7;
 }
 
-button[type=button]:active {
+button[type="button"]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -500,7 +526,7 @@ button[type=button]:active {
   transform: scale(0.95);
 }
 
-button[type=text] {
+button[type="text"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -521,16 +547,14 @@ button[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-button[type=text]:focus {
+button[type="text"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-button[type=text]:placeholder {
+button[type="text"]:placeholder {
   color: #cccccc;
 }
-
-
 
 /* ANIMATIONS */
 
@@ -662,8 +686,6 @@ button[type=text]:placeholder {
   width: 100%;
 }
 
-
-
 /* OTHERS */
 
 *:focus {
@@ -672,7 +694,9 @@ button[type=text]:placeholder {
 
 #icon {
   padding-top: 5%;
-  width: 20%;
+  margin-left: 15%;
+  height: 100%;
+  width: 100%;
   padding-bottom: 5%;
 }
 </style>
