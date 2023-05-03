@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :elevation="2" class="appbar-simgru">
+  <v-app-bar class="appbar-simgru" style="background: #00ab5f; color: #ffffff">
     <v-app-bar-nav-icon>
       <v-icon style="color: #ffffff" icon="mdi-human-greeting"></v-icon>
     </v-app-bar-nav-icon>
@@ -43,9 +43,4 @@ const handleSignOut = () => {
 };
 </script>
 
-<style scoped>
-.appbar-simgru {
-  background: #00ab5f;
-  color: #ffff;
-}
-</style>
+<style scoped></style>
