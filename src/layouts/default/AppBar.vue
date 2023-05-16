@@ -4,7 +4,7 @@
       <v-icon :style="{ color: iconColor }" :icon="icon"></v-icon>
     </v-app-bar-nav-icon>
 
-    <v-app-bar-title> Bienvenido </v-app-bar-title>
+    <v-app-bar-title> {{ pageTitle }} </v-app-bar-title>
 
     <template v-slot:append>
       <p v-if="isAuth">Hola, {{ userName }}</p>
@@ -50,10 +50,29 @@ const isCursosRoute = computed(() => {
   return /^\/?cursos(\/.*)?$/.test(currentRoutePath.value);
 });
 
-const icon = computed(() => {
-  return isCursosRoute.value ? "mdi-google-classroom" : "mdi-human-greeting";
+const isCodigosRoute = computed(() => {
+  return /^\/?codigos(\/.*)?$/.test(currentRoutePath.value);
 });
 
+const pageTitle = computed(() => {
+  if (isCursosRoute.value) {
+    return "Cursos";
+  } else if (isCodigosRoute.value) {
+    return "Codigos";
+  } else {
+    return "Bienvenido";
+  }
+});
+
+const icon = computed(() => {
+  if (isCursosRoute.value) {
+    return "mdi-google-classroom";
+  } else if (isCodigosRoute.value) {
+    return "mdi-code-tags";
+  } else {
+    return "mdi-human-greeting";
+  }
+});
 const iconColor = computed(() => {
   return isCursosRoute.value ? "#ffffff" : "#ffffff";
 });
