@@ -54,11 +54,16 @@ const isCodigosRoute = computed(() => {
   return /^\/?codigos(\/.*)?$/.test(currentRoutePath.value);
 });
 
+const isDashboardRoute = computed(() => {
+  return /^\/?dashboard(\/.*)?$/.test(currentRoutePath.value);
+});
 const pageTitle = computed(() => {
   if (isCursosRoute.value) {
     return "Cursos";
   } else if (isCodigosRoute.value) {
     return "Codigos";
+  } else if (isDashboardRoute.value) {
+    return "Dashboard";
   } else {
     return "Bienvenido";
   }
@@ -69,6 +74,8 @@ const icon = computed(() => {
     return "mdi-google-classroom";
   } else if (isCodigosRoute.value) {
     return "mdi-code-tags";
+  } else if (isDashboardRoute.value) {
+    return "mdi-view-dashboard";
   } else {
     return "mdi-human-greeting";
   }
