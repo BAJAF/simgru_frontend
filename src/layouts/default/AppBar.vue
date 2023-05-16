@@ -1,7 +1,7 @@
 <template>
   <v-app-bar class="appbar-simgru" style="background: #00ab5f; color: #ffffff">
     <v-app-bar-nav-icon>
-      <v-icon style="color: #ffffff" icon="mdi-human-greeting"></v-icon>
+      <v-icon :style="{ color: iconColor }" :icon="icon"></v-icon>
     </v-app-bar-nav-icon>
 
     <v-app-bar-title> Bienvenido </v-app-bar-title>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import router from "@/router";
 
@@ -41,6 +41,22 @@ const handleSignOut = () => {
     console.log("User signed out.");
   });
 };
+
+const currentRoutePath = computed(() => {
+  return router.currentRoute.value.path;
+});
+
+const isCursosRoute = computed(() => {
+  return /^\/?cursos(\/.*)?$/.test(currentRoutePath.value);
+});
+
+const icon = computed(() => {
+  return isCursosRoute.value ? "mdi-google-classroom" : "mdi-human-greeting";
+});
+
+const iconColor = computed(() => {
+  return isCursosRoute.value ? "#ffffff" : "#ffffff";
+});
 </script>
 
 <style scoped></style>
