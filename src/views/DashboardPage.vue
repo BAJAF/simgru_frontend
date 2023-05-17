@@ -5,13 +5,15 @@
 
     <div class="columns">
       <div class="column">
-        <div class="botonDash">Cursos</div>
+        <router-link to="/cursos" class="botonDash">Cursos</router-link>
       </div>
       <div class="column">
-        <div class="botonDash">Reportes</div>
+        <router-link to="/reportes" class="botonDash">Reportes</router-link>
       </div>
       <div class="column">
-        <div class="botonDash">Pagina de Codigos</div>
+        <router-link to="/codigos" class="botonDash"
+          >Pagina de Codigos</router-link
+        >
       </div>
     </div>
   </div>
