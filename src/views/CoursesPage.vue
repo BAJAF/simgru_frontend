@@ -15,32 +15,13 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useAppStore } from "@/store/app";
 import CourseCard from "@/components/CourseCard.vue";
+import * as moduloBackEnd from './../plugins/modulobackend.js';
 
 const jwtStore = useAppStore();
 const cursos = ref([]);
 
-const getUserCourses = () => {
-  let jwt = jwtStore.jwt;
-
-  const axInstance = axios.create({
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
-
-  axInstance
-    .get("http://localhost:8000/courses/" + jwt)
-    .then((res) => {
-      console.log(res);
-      cursos.value = res.data.courses;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
 onMounted(() => {
-  getUserCourses();
+  moduloBackEnd.getUserCourses(cursos, jwtStore);
 });
 </script>
 

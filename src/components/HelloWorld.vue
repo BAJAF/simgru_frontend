@@ -42,6 +42,7 @@ import { ref } from "vue";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAppStore } from "@/store/app";
 import { useRouter } from "vue-router";
+import * as moduloBackEnd from './../plugins/modulobackend.js';
 
 const img_user = ref("/src/assets/Isotipo1FondoBlanco1.png");
 const google_icon = ref("/src/assets/vectorGoogle.svg");
@@ -55,7 +56,8 @@ const signInWithGoogle = () => {
   console.log(provider.getScopes());
   signInWithPopup(getAuth(), provider)
     .then((res) => {
-      sendTokenToServer(res._tokenResponse.oauthAccessToken);
+      moduloBackEnd.sendTokenToServer(res._tokenResponse.oauthAccessToken, router, jwtStore);
+      //sendTokenToServer(res._tokenResponse.oauthAccessToken);
     })
     .catch((error) => {
       //Manejar el error
@@ -63,20 +65,6 @@ const signInWithGoogle = () => {
     });
 };
 
-const sendTokenToServer = (token) => {
-  axios
-    .get("http://localhost:8000/jwt/" + token + "/")
-    .then((res) => {
-      jwtStore.set(res.data.jwt);
-      console.log(res.data.jwt);
-      router.push({
-        name: "Cursos",
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
 </script>
 
 <style scoped>
