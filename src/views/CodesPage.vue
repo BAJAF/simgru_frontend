@@ -7,20 +7,28 @@
         <CodeCard
           title="Atributos"
           description="Descripcion de Atributos..."
+          :items = "atributos"
+          :onChange="getCDs"
         ></CodeCard>
         <CodeCard
           title="Criterios"
           description="Descripcion de Criterios..."
+          :items="criterios"
+          :onChange="getIs"
+          v-model="criterio"
         ></CodeCard>
         <CodeCard
           title="Indicadores"
           description="Descripcion de Indicadores..."
+          :items="indicadores"
+          v-model="indicador"
+          :onChange="createCode"
         ></CodeCard>
       </div>
       <div class="column">
         <CopyCard
           title="Codigo"
-          description="Descripcion de Codigo..."
+          :description="codeRef"
         ></CopyCard>
       </div>
     </div>
@@ -32,6 +40,70 @@ import { onMounted, ref } from "vue";
 import { useAppStore } from "@/store/app";
 import CodeCard from "@/components/CodeCard.vue";
 import CopyCard from "@/components/CopyCard.vue";
+
+const atributos = ref([]);
+const criterios = ref([]);
+const indicadores = ref([]);
+const codeRef = ref("");
+
+const atributo = ref("");
+const criterio = ref("");
+const indicador = ref("");
+
+let aeId = "";
+let cdId = "";
+let iId = "";
+
+const getAE = () => {
+  axios.get("http://localhost:8000/atributos/")
+  .then((res) => {
+    console.log(res.data.atributos);
+    atributos.value = res.data.atributos.map(x => x.id + "-" + x.descripcion);
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
+const getCDs = (value) => {
+  indicador.value = null;
+  criterio.value = null;
+  aeId = value.substring(0, value.indexOf('-'))
+  axios.get("http://localhost:8000/atributos/"+ aeId +"/")
+  .then((res) => {
+    console.log(res.data.criterios);
+    criterios.value = res.data.criterios.map(x => x.id + "-" + x.descripcion);
+  }).catch((err) => {
+    console.log(err);
+  });
+}
+
+const getIs = (value) => {
+  indicador.value = null;
+  cdId = value.substring(0, value.indexOf('-'));
+  axios.get("http://localhost:8000/atributos/" + aeId + "/criterios/" + cdId + "/")
+  .then((res) => {
+    console.log(res.data.indicadores);
+    indicadores.value = res.data.indicadores.map(x => x.id + "-" + x.descripcion);
+  }).catch((err) => {
+    console.log(err);
+  });
+
+}
+
+const createCode = (value) => {
+  iId = value.substring(0, value.indexOf('-'));
+
+  axios.get('http://localhost:8000/code/ae/'+aeId+'/cd/'+cdId+'/i/'+iId+'/').then((res) => {
+    console.log(res.data.code);
+    codeRef.value = res.data.code;
+  }).catch((err) => {
+    console.log(err);
+  });
+
+}
+
+getAE();
+
 </script>
 
 <style scoped>

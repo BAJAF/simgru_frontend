@@ -7,13 +7,14 @@
       {{ description }}
     </p>
     <v-select
-      cleareable
-      v-model="selectedItem"
+      :v-model="value"
       :items="items"
       label="Selector"
       v-if="showSelector"
       class="custom-select"
       variant="outlined"
+      @update:model-value="onChange"
+      :reset-on-options-change="true"
     ></v-select>
   </div>
 </template>
@@ -21,7 +22,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 const selectedItem = ref(null);
-const items = ["Option 1", "Option 2", "Option 3"];
 
 const showIcon = ref(false);
 const showSelector = ref(true);
@@ -37,6 +37,9 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  items: Array,
+  onChange: Function,
+  value: String
 });
 </script>
 
