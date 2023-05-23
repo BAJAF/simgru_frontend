@@ -13,6 +13,7 @@
   </v-app-bar>
 </template>
 
+
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -22,6 +23,7 @@ const isAuth = ref(false);
 const userName = ref("");
 
 let auth;
+
 onMounted(() => {
   auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -57,6 +59,8 @@ const isCodigosRoute = computed(() => {
 const isDashboardRoute = computed(() => {
   return /^\/?dashboard(\/.*)?$/.test(currentRoutePath.value);
 });
+
+
 const pageTitle = computed(() => {
   if (isCursosRoute.value) {
     return "Cursos";
@@ -69,6 +73,7 @@ const pageTitle = computed(() => {
   }
 });
 
+
 const icon = computed(() => {
   if (isCursosRoute.value) {
     return "mdi-google-classroom";
@@ -80,9 +85,13 @@ const icon = computed(() => {
     return "mdi-human-greeting";
   }
 });
+
+
 const iconColor = computed(() => {
   return isCursosRoute.value ? "#ffffff" : "#ffffff";
 });
+
+
 </script>
 
 <style scoped></style>
