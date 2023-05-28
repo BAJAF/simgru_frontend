@@ -28,6 +28,7 @@ const props = defineProps({
   },
 });
 
+
 const copyToClipboard = () => {
   //const textToCopy = ref(description)
   navigator.clipboard.writeText(props.description)
