@@ -3,7 +3,10 @@
     <v-card :title="title" :subtitle="subtitle" variant="tonal">
       <v-card-actions class="vcardbuttons">
         <v-btn @click="btnHandler" class="vbutton">Ver Curso</v-btn>
-        <v-btn class="vbutton">Informacion</v-btn>
+        <v-btn class="vbutton"
+          >
+          <router-link to="/informacion" class="botonDash">Información</router-link>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
