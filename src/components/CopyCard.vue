@@ -13,7 +13,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-
+import { defineProps } from "vue";
 
 const props = defineProps({
   title: String,
@@ -28,10 +28,10 @@ const props = defineProps({
   },
 });
 
-const copyToClipboard = () => {
-  const textToCopy = ref(description.value)
 
-  navigator.clipboard.writeText(textToCopy.value)
+const copyToClipboard = () => {
+  //const textToCopy = ref(description)
+  navigator.clipboard.writeText(props.description)
     .then(() => {
       alert('¡Texto copiado al portapapeles!');
     })
