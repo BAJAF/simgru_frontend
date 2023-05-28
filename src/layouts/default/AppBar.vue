@@ -4,7 +4,9 @@
       <v-icon :style="{ color: iconColor }" :icon="icon"></v-icon>
     </v-app-bar-nav-icon>
 
-    <v-app-bar-title> {{ pageTitle }} </v-app-bar-title>
+    <v-app-bar-title @click="redirectToDashboard">
+      {{ pageTitle }}
+    </v-app-bar-title>
 
     <template v-slot:append>
       <p v-if="isAuth">Hola, {{ userName }}</p>
@@ -40,6 +42,10 @@ const handleSignOut = () => {
     router.push("/");
     console.log("User signed out.");
   });
+};
+
+const redirectToDashboard = () => {
+  router.push("/dashboard");
 };
 
 const currentRoutePath = computed(() => {
