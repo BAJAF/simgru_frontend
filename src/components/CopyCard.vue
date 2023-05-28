@@ -2,7 +2,7 @@
   <div class="cardContainer">
     <div class="title-container">
       <h3 class="card-title">{{ title }}</h3>
-      <v-icon class="icon-container" icon="mdi-content-copy"></v-icon>
+      <v-icon class="icon-container" icon="mdi-content-copy" @click="copyToClipboard"></v-icon>
     </div>
     <hr class="card-line" />
     <p class="card-description">
@@ -13,7 +13,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-const selectedItem = ref(null);
+
 
 const props = defineProps({
   title: String,
@@ -27,6 +27,19 @@ const props = defineProps({
     default: true,
   },
 });
+
+const copyToClipboard = () => {
+  const textToCopy = ref(description.value)
+
+  navigator.clipboard.writeText(textToCopy.value)
+    .then(() => {
+      alert('¡Texto copiado al portapapeles!');
+    })
+    .catch((error) => {
+      console.error('Error al copiar al portapapeles:', error);
+    });
+};
+
 </script>
 
 <style scoped>
