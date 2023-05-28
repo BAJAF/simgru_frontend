@@ -7,7 +7,7 @@ const sendTokenToServer = (token, router, jwtStore) => {
             jwtStore.set(res.data.jwt);
             console.log(res.data.jwt);
             router.push({
-                name: "Cursos",
+                name: "Dashboard",
             });
         })
         .catch((error) => {
