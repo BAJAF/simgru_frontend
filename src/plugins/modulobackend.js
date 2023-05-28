@@ -4,10 +4,12 @@ const sendTokenToServer = (token, router, jwtStore) => {
   axios
     .get("http://localhost:8000/jwt/" + token + "/")
     .then((res) => {
-      jwtStore.set(res.data.jwt);
-      console.log(res.data.jwt);
+      const jwt = res.data.jwt;
+      localStorage.setItem("token", jwt);
+      //jwtStore.set(res.data.jwt);
+      console.log(jwt);
       router.push({
-        name: "Dashboard",
+        name: "Cursos",
       });
     })
     .catch((error) => {
