@@ -15,7 +15,6 @@
   </v-app-bar>
 </template>
 
-
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -47,7 +46,9 @@ const handleSignOut = () => {
 };
 
 const redirectToDashboard = () => {
-  router.push("/dashboard");
+  if (isAuth.value) {
+    router.push("/dashboard");
+  }
 };
 
 const currentRoutePath = computed(() => {
@@ -66,7 +67,6 @@ const isDashboardRoute = computed(() => {
   return /^\/?dashboard(\/.*)?$/.test(currentRoutePath.value);
 });
 
-
 const pageTitle = computed(() => {
   if (isCursosRoute.value) {
     return "Cursos";
@@ -78,7 +78,6 @@ const pageTitle = computed(() => {
     return "Bienvenido";
   }
 });
-
 
 const icon = computed(() => {
   if (isCursosRoute.value) {
@@ -92,12 +91,9 @@ const icon = computed(() => {
   }
 });
 
-
 const iconColor = computed(() => {
   return isCursosRoute.value ? "#ffffff" : "#ffffff";
 });
-
-
 </script>
 
 <style scoped></style>
