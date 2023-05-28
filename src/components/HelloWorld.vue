@@ -51,7 +51,12 @@ const jwtStore = useAppStore();
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
-  provider.addScope("https://www.googleapis.com/auth/classroom.courses");
+  // provider.addScope("https://www.googleapis.com/auth/classroom.courses");
+  provider.addScope("https://www.googleapis.com/auth/drive.file");  // Ver y crear solo los archivos de esta app en drive
+  provider.addScope("https://www.googleapis.com/auth/classroom.rosters.readonly") // Ver las listas de las clases
+  provider.addScope("https://www.googleapis.com/auth/classroom.courses.readonly") // Ver los cursos 
+  provider.addScope("https://www.googleapis.com/auth/classroom.coursework.students") // Calificaciones y trabajos del curso
+
 
   console.log(provider.getScopes());
   signInWithPopup(getAuth(), provider)
