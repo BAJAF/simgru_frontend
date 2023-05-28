@@ -5,53 +5,53 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 const routes = [
   {
-    path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
+    path: "/",
+    component: () => import("@/layouts/default/Default.vue"),
     children: [
       {
-        path: '',
-        name: 'Home',
+        path: "",
+        name: "Home",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/Home.vue'),
+        component: () => import("@/views/Home.vue"),
       },
       {
-        path: 'cursos',
-        name: 'Cursos',
+        path: "cursos",
+        name: "Cursos",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/CoursesPage.vue'),
+        component: () => import("@/views/CoursesPage.vue"),
         meta: {
           requiresAuth: true,
-        }
+        },
       },
       {
-        path: 'codigos',
-        name: 'Codigos',
+        path: "codigos",
+        name: "Codigos",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/CodesPage.vue'),
+        component: () => import("@/views/CodesPage.vue"),
         meta: {
-
-        }
+          requiresAuth: true,
+        },
       },
       {
-        path: 'dashboard',
-        name: 'Dashboard',
+        path: "dashboard",
+        name: "Dashboard",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/DashboardPage.vue'),
+        component: () => import("@/views/DashboardPage.vue"),
         meta: {
-
-        }
+          requiresAuth: true,
+        },
       },
     ],
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

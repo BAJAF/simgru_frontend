@@ -1,35 +1,18 @@
 import axios from "axios";
 
 const sendTokenToServer = (token, router, jwtStore) => {
-<<<<<<< HEAD
-    axios
-        .get("http://localhost:8000/jwt/" + token + "/")
-        .then((res) => {
-            jwtStore.set(res.data.jwt);
-            console.log(res.data.jwt);
-            router.push({
-                name: "Dashboard",
-            });
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-=======
   axios
     .get("http://localhost:8000/jwt/" + token + "/")
     .then((res) => {
-      const jwt = res.data.jwt;
-      localStorage.setItem("token", jwt);
-      //jwtStore.set(jwt);
-      console.log(jwt);
+      jwtStore.set(res.data.jwt);
+      console.log(res.data.jwt);
       router.push({
-        name: "Cursos",
+        name: "Dashboard",
       });
     })
     .catch((error) => {
       console.error(error);
     });
->>>>>>> e38e969b1e9e043e093bf63bb130bec7a3a92110
 };
 
 const getUserCourses = (cursos, jwtStore) => {
