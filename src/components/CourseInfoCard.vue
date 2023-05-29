@@ -11,16 +11,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "CourseInfoCard",
-  props: ["title", "description", "alumnos", "link"],
-  methods: {
-    btnHandler() {
-      window.open(this.link);
-    },
-  },
+<script setup>
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const selectedItem = ref(null);
+
+const btnHandler = () => {
+  window.open(this.link);
 };
+
+const props = defineProps({
+  title: String,
+  description: String,
+  alumnos: Number,
+});
 </script>
 
 <style>
@@ -60,7 +65,7 @@ export default {
   text-align: right;
   font-weight: 500;
   opacity: 70%;
-  color: rgb(73, 78, 74);
+  color: rgb(129, 138, 132);
 }
 
 .vbutton {

@@ -39,7 +39,7 @@ const getUserCourses = (cursos, jwtStore) => {
 };
 
 const getCourseInformation = (courseId, courseRef) => {
-    const jwt = localStorage.getItem("token");
+  const jwt = localStorage.getItem("token");
 
   axios
     .get("http://localhost:8000/courses/", {
