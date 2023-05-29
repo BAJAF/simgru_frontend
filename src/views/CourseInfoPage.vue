@@ -100,8 +100,8 @@ onMounted(() => {
   position: absolute;
   background-color: transparent;
   left: 3%;
-  top: 11%;
-  margin: 2% auto 1% auto;
+  top: 13%;
+  margin: 1% auto 1% auto;
   overflow: hidden;
 }
 
@@ -109,7 +109,7 @@ onMounted(() => {
   grid-gap: 100px;
   justify-content: center;
   align-items: center;
-  margin-top: 15%;
+  margin-top: 13%;
 }
 
 .btn_container {

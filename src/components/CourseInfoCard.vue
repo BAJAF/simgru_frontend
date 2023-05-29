@@ -52,6 +52,7 @@ export default {
 
 .description {
   text-align: left;
+  margin-left: 2%;
 }
 
 .alumnos {

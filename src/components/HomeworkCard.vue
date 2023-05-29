@@ -41,7 +41,7 @@ export default {
   width: 90%;
   height: 75px;
   background-color: rgba(237, 237, 237, 0.8);
-  margin: 3% auto 3% auto;
+  margin: 1% auto 1.5% auto;
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;

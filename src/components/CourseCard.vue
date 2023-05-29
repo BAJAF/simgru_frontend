@@ -36,7 +36,7 @@ export default {
   width: 90%;
   text-align: center;
   background-color: rgba(237, 237, 237, 0.8);
-  margin: 3% auto 3% auto;
+  margin: 2% auto 1% auto;
   border-radius: 15px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
