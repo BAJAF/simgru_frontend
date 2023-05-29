@@ -13,7 +13,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { defineProps } from "vue";
+//import { defineProps } from "vue";
 
 const props = defineProps({
   title: String,

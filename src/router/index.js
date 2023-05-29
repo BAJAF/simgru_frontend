@@ -50,15 +50,15 @@ const routes = [
         },
       },
       {
-        path: 'informacion/:courseId',
-        name: 'Informacion',
+        path: "informacion/:courseId",
+        name: "Informacion",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('@/views/CourseInfoPage.vue'),
+        component: () => import("@/views/CourseInfoPage.vue"),
         meta: {
-
-        }
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -82,16 +82,44 @@ const getCurrentUser = () => {
   });
 }
 
+// router.beforeEach(async (to, from, next) => {
+//   if(to.matched.some((record) => record.meta.requiresAuth)) {
+//     if(await getCurrentUser()) {
+//       next()
+//     } else {
+//       next("/");
+//     }
+//   } else {
+//     next()
+//   }
+// })
+
+// router.beforeEach(async (to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (await getCurrentUser()) {
+//       next();
+//     } else {
+//       next("/");
+//     }
+//   } else {
+//     if (await getCurrentUser()) {
+//       next("/dashboard"); // Redirige al dashboard si el usuario está autenticado, (Me quiero morir)
+//     } else {
+//       next();
+//     }
+//   }
+// });
+
 router.beforeEach(async (to, from, next) => {
-  if(to.matched.some((record) => record.meta.requiresAuth)) {
-    if(await getCurrentUser()) {
-      next()
-    } else {
-      next("/")
-    }
+  const user = await getCurrentUser();
+  const isAuthenticated = !!user;
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    isAuthenticated ? next() : next("/");
   } else {
-    next()
+    isAuthenticated ? next("/dashboard") : next();
   }
-})
+});
+
 
 export default router
