@@ -6,6 +6,7 @@ const sendTokenToServer = (token, router, jwtStore) => {
         .then((res) => {
             jwtStore.set(res.data.jwt);
             console.log(res.data.jwt);
+            localStorage.setItem("token", res.data.jwt);
             router.push({
                 name: "Dashboard",
             });
