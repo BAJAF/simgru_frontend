@@ -71,6 +71,10 @@ const isInfoRoute = computed(() => {
   return /^\/?informacion(\/.*)?$/.test(currentRoutePath.value);
 });
 
+const isReportsRoute = computed(() => {
+  return /^\/?reportes(\/.*)?$/.test(currentRoutePath.value);
+});
+
 const pageTitle = computed(() => {
   if (isCursosRoute.value) {
     return "Cursos";
@@ -79,7 +83,9 @@ const pageTitle = computed(() => {
   } else if (isDashboardRoute.value) {
     return "Dashboard";
   } else if (isInfoRoute.value) {
-    return "Información";
+    return "Información del curso";
+  }else if (isReportsRoute.value) {
+    return "Reportes generados";
   } else {
     return "Bienvenido";
   }
@@ -88,7 +94,7 @@ const pageTitle = computed(() => {
 const icon = computed(() => {
   if (isCursosRoute.value || isInfoRoute.value) {
     return "mdi-google-classroom";
-  } else if (isCodigosRoute.value) {
+  } else if (isCodigosRoute.value || isReportsRoute.value) {
     return "mdi-code-tags";
   } else if (isDashboardRoute.value) {
     return "mdi-view-dashboard";

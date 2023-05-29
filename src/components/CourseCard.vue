@@ -5,7 +5,7 @@
         <v-btn @click="btnHandler" class="vbutton">Ver Curso</v-btn>
         <v-btn class="vbutton"
           >
-          <router-link to="/informacion" class="botonDash" @click="goToCourseInfo">Información</router-link>
+          <router-link to="/informacion/:courseId" class="botonDash" @click="goToCourseInfo">Información</router-link>
         </v-btn>
       </v-card-actions>
     </v-card>
