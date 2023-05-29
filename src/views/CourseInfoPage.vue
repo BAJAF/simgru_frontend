@@ -28,18 +28,17 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { onMounted, ref } from "vue";
-import { useAppStore } from "@/store/app";
 import HomeworkCard from "@/components/HomeworkCard.vue";
 import CourseInfoCard from "@/components/CourseInfoCard.vue";
-import * as moduloBackEnd from "./../plugins/modulobackend.js";
+import { getCourseInformation } from "./../plugins/modulobackend.js";
+import { useRoute } from "vue-router";
 
-const jwtStore = useAppStore();
-const cursos = ref([]);
+const route = useRoute()
+const courseInformation = ref({});
 
 onMounted(() => {
-    moduloBackEnd.getUserCourses(cursos, jwtStore);
+  getCourseInformation(route.params.courseId, courseInformation);
 });
 </script>
 
