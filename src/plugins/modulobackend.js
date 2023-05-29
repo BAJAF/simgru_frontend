@@ -39,4 +39,20 @@ const getUserCourses = (cursos, jwtStore) => {
     });
 };
 
-export { sendTokenToServer, getUserCourses };
+const getCourseInformation = (courseId, courseRef) => {
+    const jwt = localStorage.getItem("token");
+
+    axios.get("http://localhost:8000/courses/", {
+        params: {
+            token: jwt,
+            courseId: courseId
+        }
+    }).then((res) => {
+        courseRef.value = res.data;
+        console.log("Course Information: ", res.data);
+    }).catch((err) => {
+        console.error("Error in getCourseInformation: ", err.message);
+    })
+}
+
+export { sendTokenToServer, getUserCourses, getCourseInformation };

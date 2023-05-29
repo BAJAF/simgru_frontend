@@ -4,7 +4,7 @@
     <div class="cimarron"></div>
     <div class="cardCourse">
       <div class="cardContainer" v-for="c in cursos" :key="c.id">
-        <CourseCard :title="c.name" :subtitle="c.description" :link="c.link" />
+        <CourseCard :title="c.name" :subtitle="c.description" :link="c.link" :courseId="c.id" />
       </div>
     </div>
   </div>

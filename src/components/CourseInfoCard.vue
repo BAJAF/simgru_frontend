@@ -13,17 +13,25 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+import { getCourseInformation } from "../plugins/modulobackend.js"
+
+const route = useRoute();
 const selectedItem = ref(null);
+const courseInformation = ref({});
+
+onMounted(() => {
+  getCourseInformation(route.params.courseId, courseInformation);
+});
+
+const btnHandler = () => {
+  window.open(this.link);
+};
 
 const props = defineProps({
   title: String,
   description: String,
   alumnos: Number,
-  methods: {
-    btnHandler() {
-      window.open(this.link);
-    },
-  },
 });
 </script>
 
